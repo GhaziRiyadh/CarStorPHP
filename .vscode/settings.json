@@ -1,0 +1,14 @@
+{
+    "php.executablePath": "C:/xampp/php/php.exe",
+    "workbench.iconTheme": "material-icon-theme",
+    "php.validate.executablePath": "C:/xampp/php/php.exe",
+    "editor.formatOnSave": true,
+    "workbench.colorTheme": "Atom One Dark",
+    "atomKeymap.promptV3Features": true,
+    "editor.multiCursorModifier": "ctrlCmd",
+    "editor.formatOnPaste": true,
+    "projectManager.filterOnFullPath": true,
+    "git.ignoreMissingGitWarning": true,
+    "html.format.templating": true,
+    "php.validate.run": "onType"
+}

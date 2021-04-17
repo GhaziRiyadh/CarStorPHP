@@ -1,0 +1,14 @@
+@font-face {
+    font-family: "arabicfont";
+    src: url('../fonts/arabic_font/Tajawal-Black.ttf');
+    src: url('../fonts/arabic_font/Tajawal-Bold.ttf');
+    src: url('../fonts/arabic_font/Tajawal-ExtraBold.ttf');
+    src: url('../fonts/arabic_font/Tajawal-ExtraLight.ttf');
+    src: url('../fonts/arabic_font/Tajawal-Light.ttf');
+    src: url('../fonts/arabic_font/Tajawal-Medium.ttf');
+    src: url('../fonts/arabic_font/Tajawal-Regular.ttf');
+}
+
+body {
+    font-family: arabicfont;
+}
