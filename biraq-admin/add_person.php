@@ -5,10 +5,10 @@
 	}
 	require_once("./widgets/db.php");
     include("./widgets/header.php");
-    get_header("إضافة سيارة"); //$pos
+    get_header("إضافة موظف/مسئول"); //$pos
     include("./widgets/nav.php");
-	get_nav(-1);
-    include("./widgets/add_car_item.php");
+	get_nav(2);
+    include("./widgets/add_peer.php");
     add_car_item();
     include("./widgets/footer.php");
     get_footer();

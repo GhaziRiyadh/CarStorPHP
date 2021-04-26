@@ -20,9 +20,9 @@ if ( ! empty( $_POST ) ) {
     $now = date("Y-m-d H:i:s");
     $query = "INSERT INTO `car`(`vin`, `brand`, `color`, `year`, `style`, `model`, `gear`, `gear_type`, `cylinder`, `cost`, `price`, `drive_type`, `fuel_type`, `seats_num`, `p_id`, `date`) 
         VALUES ($vin,$brand,$color,$year,$style,$model,$gear,$gear_type,$cylinder,$cost,$price,$drive_type,$fuel_type,$seats_num,$p_id,$now)";
-    $result = mysqli_query($conn, $query);
-    $user = mysqli_fetch_array($result);
-    header("location: ../index.php");
+    if ($conn->query($query) === TRUE){
+        header("location: ../index.php");
+    }
     $conn->close();  
 } else {
     echo "POST is empty!";

@@ -15,15 +15,13 @@ if ( ! empty( $_POST ) ) {
     	// Verify user password and set $_SESSION
     	if ( password_verify( $_POST['password'], $user['password']) ) {
     		$_SESSION['emp_id'] = $user['username'];
-            echo "successful!";
+            $conn->close();
             header("location: ../index.php");
-    	}else {
-            echo "failed!";
-        }
-        $conn->close();  
+    	}   
     }
 } else {
     echo "POST is empty!";
+    header("location: ../login.html");
 }
 
 ?>
