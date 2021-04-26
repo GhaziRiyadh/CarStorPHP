@@ -1,0 +1,93 @@
+bill_dtl //تفاصيل الفواتير
+	cid // رقم العميل
+	bid // رقم الفاتورة
+	vin // رقم القعادة
+	uprice // السعر النهائي
+	quantity // الكمية
+	quantity_price // السعر لعتصر واحد
+	discount // التخفيض
+	tax // الضريبة
+bill_mst // معلومات الفواتير
+	serial // رقم الفاتورة
+	dateb // تاريخ الفاتورة
+	totalPrice // السعر النهائي
+	cid // رقم العميل
+car // السيارة
+	vin // رقم القعادة
+	brand // الشركة
+	color // اللون
+	year // السنة
+	style // الشكل
+	model // الموديل
+	gear // الجير
+	gear_type // التعشيق
+	cylinder // الاسطوانات
+	cost // القيمة الفعلية
+	price // القيمة النهائية
+	drive_type // نوع القيادة
+	seats_num // عدد المقاعد
+	p_id // الموقع
+	date //	التاريخ
+car_dtl // تفاصيل السيارة
+	vin // رقم القعادة
+	detail // التفاصيل
+car_photos // صور السيارة
+	vin // رقم القعادة
+	photo // الصورة او الصور
+client // العميل
+	cid // رقم العميل
+	fullname // الاسم الكامل
+	gender // الجنس
+	city // المدينة
+	country // الدولة
+	dateOfSubmission // تاريخ الاشتراك
+	photo // الصوؤة
+client_email //
+	cid // رقم العميل
+	email // الايميل
+client_info // دخول العميل
+	cid // رقم العميل
+	cname // اسم المستخدم
+	password // كلمة المرور
+	email // الايميل
+client_phone // هاتف العميل
+	cid // رقم العميل
+	phone // رقم الهاتف
+emp // الموظف
+	id // رقم الموظف
+	ssn // رقم الهوية
+	fullname // السم الكامل
+	gender // الجنس
+	city // المدينة
+	country // الدولة
+	photo // الصورة
+	type // النوع 
+	qualification // المؤهل
+	ssn_scan //	صورة الهوية
+emp_email // ايميل الموظف
+	id // رقم الموظف
+	email // الايميل
+client_info // دخول الموظف
+	id // رقم الموظف
+	cname // اسم المستخدم
+	password // كلمة المرور
+	email // الايميل
+emp_phone // هاتف الموظف
+	id // رقم الموظف
+	phone // رقم الهاتف
+places // الاماكن
+	id // رقم المكان
+	city // المدينة
+	country // الدولة
+preserve_dtl // تفاصيل الحجز
+	cid // رقم العميل
+	datep // تاريخ الحجز
+	vin // رقم القعادة
+	price // السعر
+	remains // المتبقي
+	note // الملاحظات
+preserve_mst // معلومات الحجز
+	cid // رقم العميل
+	datep // تاريخ الحجز
+	earnest // العربون
+	duration // المدة
