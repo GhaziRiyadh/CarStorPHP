@@ -11,7 +11,7 @@ if (!empty($_POST)) {
     $pass2 = $_POST['pass2'];
     $gender = $_POST['gender'];
     $country = $_POST['country'];
-    $city = $_POST['city'];
+    $city = strtoupper($_POST['city']);
     $phone = $_POST['phone'];
     $email = $_POST['email'];
     $type = $_POST['type'];
@@ -29,7 +29,7 @@ if (!empty($_POST)) {
         $temp = explode(".", $_FILES["file"]["name"]);
         $newfilename = microtime(true) . '.' . $temp;
         $fileToMove = $_FILES['photo']['tmp_name'];
-        $destinatiom = "./ephoto/" . $newfilename;
+        $destinatiom = "./images/ephoto/" . $newfilename;
         $photo = $destinatiom;
         move_uploaded_file($_FILES["file"]["tmp_name"], $destinatiom . $newfilename);
     } else {
@@ -41,7 +41,7 @@ if (!empty($_POST)) {
         $temp = explode(".", $_FILES["file"]["name"]);
         $newfilename = microtime(true) . '.' . $temp;
         $fileToMove = $_FILES['photo']['tmp_name'];
-        $destinatiom = "./ephoto/" . $newfilename;
+        $destinatiom = "./images/essn/" . $newfilename;
         $ssn_photo = $destinatiom;
         move_uploaded_file($_FILES["file"]["tmp_name"], $destinatiom . $newfilename);
     } else {
