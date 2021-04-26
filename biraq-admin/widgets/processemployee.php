@@ -26,11 +26,11 @@ if (!empty($_POST)) {
     //uploading files
     if (!empty($_POST['photo'])) {
         echo "got user photo!\n";
-        $fileToMove = $_FILES['photo']['tmp_name'];
-        $destinatiom = "./ephoto/";
-        $photo = $destinatiom;
         $temp = explode(".", $_FILES["file"]["name"]);
-        $newfilename = round(microtime(true)) . '.' . end($temp);
+        $newfilename = microtime(true) . '.' . $temp;
+        $fileToMove = $_FILES['photo']['tmp_name'];
+        $destinatiom = "./ephoto/" . $newfilename;
+        $photo = $destinatiom;
         move_uploaded_file($_FILES["file"]["tmp_name"], $destinatiom . $newfilename);
     } else {
         $photo = null;
@@ -38,11 +38,11 @@ if (!empty($_POST)) {
     }
     if (!empty($_POST['ssn_photo'])) {
         echo "got ssn photo!\n";
-        $fileToMove = $_FILES['ssn_photo']['tmp_name'];
-        $destinatiom = "./essn/";
-        $ssn_photo = $destinatiom;
         $temp = explode(".", $_FILES["file"]["name"]);
-        $newfilename = round(microtime(true)) . '.' . end($temp);
+        $newfilename = microtime(true) . '.' . $temp;
+        $fileToMove = $_FILES['photo']['tmp_name'];
+        $destinatiom = "./ephoto/" . $newfilename;
+        $ssn_photo = $destinatiom;
         move_uploaded_file($_FILES["file"]["tmp_name"], $destinatiom . $newfilename);
     } else {
         $ssn_photo = null;
@@ -54,8 +54,16 @@ if (!empty($_POST)) {
     $id = $row['id'] + 1;
     //commit
     echo "submitting..\n";
-    $query = "INSERT INTO `emp`(`id`, `ssn`, `fullname`, `gender`, `city`, `country`, `photo`, `type`, `qualification`, `ssn_scan`) 
+    if (is_null($photo) == true && is_null($ssn_photo) == false) {
+        $query = "INSERT INTO `emp`(`id`, `ssn`, `fullname`, `gender`, `city`, `country`, `photo`, `type`, `qualification`, `ssn_scan`) 
+                VALUES ($id, $SSN,\"$name\",\"$gender\",\"$city\",\"$country\",$photo,\"$type\",\"$qualification\",\"$ssn_photo)\"";
+    } else if (is_null($photo) == false && is_null($ssn_photo) == true) {
+        $query = "INSERT INTO `emp`(`id`, `ssn`, `fullname`, `gender`, `city`, `country`, `photo`, `type`, `qualification`, `ssn_scan`) 
+                VALUES ($id, $SSN,\"$name\",\"$gender\",\"$city\",\"$country\",\"$photo\",\"$type\",\"$qualification\",$ssn_photo)";
+    } else {
+        $query = "INSERT INTO `emp`(`id`, `ssn`, `fullname`, `gender`, `city`, `country`, `photo`, `type`, `qualification`, `ssn_scan`) 
                 VALUES ($id, $SSN,\"$name\",\"$gender\",\"$city\",\"$country\",\"$photo\",\"$type\",\"$qualification\",\"$ssn_photo\")";
+    }
     if ($conn->query($query) === TRUE) {
         echo "success! on emp table";
         header("location: ../index.php");

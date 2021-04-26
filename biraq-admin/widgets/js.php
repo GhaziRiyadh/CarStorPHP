@@ -79,9 +79,6 @@
         <!-- main JS
             ============================================ -->
         <script src=\"js/main.js\"></script>
-        <!-- tawk chat JS
-            ============================================ -->
-        <script src=\"js/tawk-chat.js\"></script>
         <!--  notification JS
             ============================================ -->
         <script src=\"js/notification/bootstrap-growl.min.js\"></script>
@@ -100,4 +97,3 @@
             ============================================ -->
         <script src=\"js/bootstrap-select/bootstrap-select.js\"></script>
     ";
-?>
