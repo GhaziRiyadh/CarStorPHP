@@ -91,3 +91,4 @@ preserve_mst // معلومات الحجز
 	datep // تاريخ الحجز
 	earnest // العربون
 	duration // المدة
+

@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"php.executablePath": "C:/xampp/php/php.exe",
+		"workbench.iconTheme": "material-icon-theme",
+		"workbench.colorTheme": "Default Dark+",
+		"atomKeymap.promptV3Features": true,
+		"projectManager.filterOnFullPath": true,
+		"git.ignoreMissingGitWarning": true,
+		"php.validate.run": "onType"
+	}
+	
+
+}
