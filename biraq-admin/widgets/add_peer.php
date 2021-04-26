@@ -1,6 +1,7 @@
 <?php
-    function add_car_item() {
-        print "
+function add_car_item()
+{
+    print "
         <!-- Breadcomb area Start-->
 <div class=\"breadcomb-area\">
     <div class=\"container\">
@@ -104,8 +105,8 @@
                                 <div class=\"bootstrap-select fm-cmp-mg\">
                                     <select name=\"gender\" class=\"selectpicker\" data-live-search=\"true\">
                                         <option disabled selected hidden>اختر</option>
-                                        <option value=\"MALE\">ذكر</option>
-                                        <option value=\"FEMALE\">أنثى</option>
+                                        <option value=\"M\">ذكر</option>
+                                        <option value=\"F\">أنثى</option>
                                     </select>
                                 </div>
                             </div>
@@ -209,7 +210,7 @@
 </div>
 <!-- Compose email area End-->
         ";
-        print "
+    print "
         <script>
         function vs() {
             if (document.getElementsByName('fullname').value == \"\") {
@@ -268,4 +269,4 @@
         }
         </script>
         ";
-    }
+}

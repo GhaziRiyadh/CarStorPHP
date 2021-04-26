@@ -1,5 +1,5 @@
 <?php
-$passwo = "12345678";
+$passwo = "jacksparoo";
 $today = date("Y-m-d H:i:s");
 $lasr = password_hash($passwo, PASSWORD_ARGON2I);
 print_r($lasr);

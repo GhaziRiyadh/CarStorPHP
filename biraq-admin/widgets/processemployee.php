@@ -33,6 +33,7 @@ if (!empty($_POST)) {
         $newfilename = round(microtime(true)) . '.' . end($temp);
         move_uploaded_file($_FILES["file"]["tmp_name"], $destinatiom . $newfilename);
     } else {
+        $photo = null;
         echo "no user photo\n";
     }
     if (!empty($_POST['ssn_photo'])) {
@@ -44,27 +45,50 @@ if (!empty($_POST)) {
         $newfilename = round(microtime(true)) . '.' . end($temp);
         move_uploaded_file($_FILES["file"]["tmp_name"], $destinatiom . $newfilename);
     } else {
+        $ssn_photo = null;
         echo "no ssn photo!\n";
     }
+    $query = "SELECT `id` FROM `emp` ORDER BY ID DESC limit 1";
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_assoc($result);
+    $id = $row['id'] + 1;
     //commit
     echo "submitting..\n";
-    $query = "BEGIN;
-            INSERT INTO `emp`(`ssn`, `fullname`, `gender`, `city`, `country`, `photo`, `type`, `qualification`,`ssn_scan`) 
-                VALUES ($SSN,$name,$gender,$city,$country,$photo,$type,$qualification,$ssn_photo);
-            INSERT INTO `emp_email`(`ID`, `email`) 
-                VALUES (LAST_INSERTED_ID(),$email);
-            INSERT INTO `emp_info`(`ID`, `username`, `password`, `email`) 
-                VALUES (LAST_INSERTED_ID(),$username,$pass,$email);
-            INSERT INTO `emp_phone`(`ID`, `phone`) 
-                VALUES (LAST_INSERTED_ID(),$phone);
-            COMMIT;";
+    $query = "INSERT INTO `emp`(`id`, `ssn`, `fullname`, `gender`, `city`, `country`, `photo`, `type`, `qualification`, `ssn_scan`) 
+                VALUES ($id, $SSN,\"$name\",\"$gender\",\"$city\",\"$country\",\"$photo\",\"$type\",\"$qualification\",\"$ssn_photo\")";
     if ($conn->query($query) === TRUE) {
-        $conn->close();
-        echo "success!";
+        echo "success! on emp table";
         header("location: ../index.php");
     } else {
         echo $conn->error;
-        echo "failed!";
+        echo "\nfailed! on emp table";
+    }
+    $query = "INSERT INTO emp_email(ID, email) 
+                VALUES ($id, '$email')";
+    if ($conn->query($query) === TRUE) {
+        echo "success! on emp table";
+        header("location: ../index.php");
+    } else {
+        echo $conn->error;
+        echo "\nfailed! on emp table";
+    }
+    $query = "INSERT INTO emp_info(ID, username, password, email) 
+                VALUES ($id, '$username','$pass','$email')";
+    if ($conn->query($query) === TRUE) {
+        echo "success! on emp table";
+        header("location: ../index.php");
+    } else {
+        echo $conn->error;
+        echo "\nfailed! on emp table";
+    }
+    $query = "INSERT INTO emp_phone(ID, phone) 
+                VALUES ($id, '$phone')";
+    if ($conn->query($query) === TRUE) {
+        echo "success! on emp table";
+        header("location: ../index.php");
+    } else {
+        echo $conn->error;
+        echo "\nfailed! on emp table";
     }
     $conn->close();
 }
