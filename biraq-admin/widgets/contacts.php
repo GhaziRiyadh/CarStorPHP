@@ -28,9 +28,9 @@ function get_contacts()
         WHERE W.`ID`=X.`ID`=Y.`ID`=Z.`ID`
         ORDER BY X.`type`, X.`fullname`";
     $employee = mysqli_query($conn, $query);
-    $i = 0;
+    //$i = 1;
     while ($row = mysqli_fetch_assoc($employee)) {
-        $i++;
+        //$i++;
         $name = $row['fullname'];
         $photo = $row['photo'];
         $city = $row['city'];
@@ -41,12 +41,12 @@ function get_contacts()
         $qualification = $row['qualification'];
         $username = $row['username'];
 
-        print "<div class=\"col-lg-3 col-md-6 col-sm-6 col-xs-12\">
+        print "<div class=\"col-lg-3 col-md-6 col-sm-12 col-xs-12\">
             <div class=\"contact-list\">
                 <div class=\"contact-win\">
                     <div class=\"contact-img\">";
         if ($photo != NULL) {
-            print "<img src=\"$photo\" alt=\"\" />";
+            print "<img src=\"widgets/$photo\" alt=\"\" />";
         } else {
             print "<img src=\"img/post/1.jpg\" alt=\"\" />";
         }
@@ -79,9 +79,10 @@ function get_contacts()
                 </div>
             </div>
         </div> ";
-        if ($i == 4) {
-            print "</div><div class=\"row\">";
-        }
+        //if ($i == 3) {
+        //    $i = 0;
+        //    print "</div><div class=\"row\">";
+        //}
     }
     print "</div></div>
             </div>

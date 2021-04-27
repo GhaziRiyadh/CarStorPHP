@@ -26,11 +26,12 @@ function add_car_item()
         </div>
     </div>
 </div>
+
 <!-- Breadcomb area End-->
 <!-- Compose email area Start-->
 <div class=\"inbox-area\">
     <div class=\"container\">
-    <form action=\"./widgets/processemployee.php\" id=\"addp\" method=\"post\">
+    <form action=\"./widgets/processemployee.php\" id=\"addp\" method=\"post\" enctype=\"multipart/form-data\">
         <div class=\"row\">
             <div class=\"col-lg-12 col-md-12 col-sm-12 col-xs-12\">
                 <div class=\"view-mail-list sm-res-mg-t-30\">
@@ -190,7 +191,7 @@ function add_car_item()
                         <input type=\"file\" name=\"photo\" />
                     </div>
                     </div>
-                    </form>
+                    
                     <div class=\"vw-ml-action-ls text-right mg-t-20\">
                         <div class=\"btn-group ib-btn-gp active-hook nk-email-inbox\">
                         <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-3\">
@@ -199,10 +200,10 @@ function add_car_item()
                             <button class=\"btn notika-btn-blue\">
                             <input type=\"submit\" value=\"Login\" class=\"btn notika-btn-blue\" name=\"login\">
                             </button>
-                            </div>
-                    </div>
                         </div>
-                    </div>
+                        </div>
+                        </div>
+                    </div></form>
                 </div>
             </div>
         </div>

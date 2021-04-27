@@ -15,38 +15,46 @@ if (!empty($_POST)) {
     $phone = $_POST['phone'];
     $email = $_POST['email'];
     $type = $_POST['type'];
-    $photo = $_POST['photo'];
-    $ssn_photo = $_POST['ssn_photo'];
     //check password and apply hashing
     echo "password check..\n";
     if ($pass1 == $pass2) {
         $pass = password_hash($pass2, PASSWORD_ARGON2I);
         echo "password match!\n";
     }
+    echo "file check...\nFile ";
+    print_r($_FILES);
     //uploading files
-    if (!empty($_POST['photo'])) {
-        echo "got user photo!\n";
-        $temp = explode(".", $_FILES["file"]["name"]);
-        $newfilename = microtime(true) . '.' . $temp;
+    if (!is_null($_FILES["photo"]["name"])) {
+        echo "got user photo: " . $_FILES["photo"]["name"] . "\n";
+        $temp = explode(".", $_FILES["photo"]["name"]);
+        $newfilename = microtime(true) . '.' . $_FILES["photo"]["name"];
         $fileToMove = $_FILES['photo']['tmp_name'];
-        $destinatiom = "./images/ephoto/" . $newfilename;
-        $photo = $destinatiom;
-        move_uploaded_file($_FILES["file"]["tmp_name"], $destinatiom . $newfilename);
+        $destination = "./images/ephoto/" . $newfilename;
+        if (move_uploaded_file($fileToMove, $destination)) {
+            $photo = $destination;
+            echo "moved the user photo: $photo\n";
+        } else {
+            echo "error moving user photo\n";
+        }
     } else {
         $photo = null;
         echo "no user photo\n";
     }
-    if (!empty($_POST['ssn_photo'])) {
-        echo "got ssn photo!\n";
-        $temp = explode(".", $_FILES["file"]["name"]);
-        $newfilename = microtime(true) . '.' . $temp;
-        $fileToMove = $_FILES['photo']['tmp_name'];
-        $destinatiom = "./images/essn/" . $newfilename;
-        $ssn_photo = $destinatiom;
-        move_uploaded_file($_FILES["file"]["tmp_name"], $destinatiom . $newfilename);
+    if (!is_null($_FILES["ssn_photo"]["name"])) {
+        echo "got ssn photo: " . $_FILES["ssn_photo"]["name"] . "\n";
+        $temp = explode(".", $_FILES["ssn_photo"]["name"]);
+        $newfilename = microtime(true) . '.' . $_FILES["ssn_photo"]["name"];
+        $fileToMove = $_FILES['ssn_photo']['tmp_name'];
+        $destination = "./images/essn/" . $newfilename;
+        if (move_uploaded_file($fileToMove, $destination)) {
+            $ssn_photo = $destination;
+            echo "moved the ssn photo: $ssn_photo\n";
+        } else {
+            echo "error moving ssn photo\n";
+        }
     } else {
-        $ssn_photo = null;
-        echo "no ssn photo!\n";
+        $photo = null;
+        echo "no user photo\n";
     }
     $query = "SELECT `id` FROM `emp` ORDER BY ID DESC limit 1";
     $result = mysqli_query($conn, $query);
@@ -66,7 +74,7 @@ if (!empty($_POST)) {
     }
     if ($conn->query($query) === TRUE) {
         echo "success! on emp table";
-        header("location: ../index.php");
+        //header("location: ../index.php");
     } else {
         echo $conn->error;
         echo "\nfailed! on emp table";
@@ -75,7 +83,7 @@ if (!empty($_POST)) {
                 VALUES ($id, '$email')";
     if ($conn->query($query) === TRUE) {
         echo "success! on emp table";
-        header("location: ../index.php");
+        //header("location: ../index.php");
     } else {
         echo $conn->error;
         echo "\nfailed! on emp table";
@@ -84,7 +92,7 @@ if (!empty($_POST)) {
                 VALUES ($id, '$username','$pass','$email')";
     if ($conn->query($query) === TRUE) {
         echo "success! on emp table";
-        header("location: ../index.php");
+        //header("location: ../index.php");
     } else {
         echo $conn->error;
         echo "\nfailed! on emp table";
@@ -93,7 +101,7 @@ if (!empty($_POST)) {
                 VALUES ($id, '$phone')";
     if ($conn->query($query) === TRUE) {
         echo "success! on emp table";
-        header("location: ../index.php");
+        //header("location: ../index.php");
     } else {
         echo $conn->error;
         echo "\nfailed! on emp table";
