@@ -181,14 +181,14 @@ function add_car_item()
                                     <h2> :صورة الهوية</h2>
                                 </div>
                                 <p>قم بإختيار صورة واحدة فقط</p>
-                        <input type=\"file\" name=\"ssn_photo\"/>
+                        <input type=\"file\" name=\"ssn_photo\" multiple=\"false\" accept=\".jpg, .jpeg, .jpe .jif, .jfif, .jfi, .png, .webp, .tiff, .tif\"/>
                     </div>
                     <div class=\"col-lg-3 col-md-3 col-sm-6 col-xs-12\">
                                 <div class=\"nk-int-mk sl-dp-mn sm-res-mg-t-10\">
                                     <h2> :صورة المستخدم</h2>
                                 </div>
                                 <p>قم بإختيار صورة واحدة فقط</p>
-                        <input type=\"file\" name=\"photo\" />
+                        <input type=\"file\" name=\"photo\"  multiple=\"false\" accept=\".jpg, .jpeg, .jpe .jif, .jfif, .jfi, .png, .webp, .tiff, .tif\"/>
                     </div>
                     </div>
                     
@@ -198,7 +198,7 @@ function add_car_item()
                         <div class=\"breadcomb-report\">
                             <!-- a id=\"submit\" href=\"javascript:{}\" onClick=\"vs();\" class=\"btn btn-lg waves-effect\"><i class=\"notika-icon notika-checked\"> حفظ </i></a -->
                             <button class=\"btn notika-btn-blue\">
-                            <input type=\"submit\" value=\"Login\" class=\"btn notika-btn-blue\" name=\"login\">
+                            <input type=\"submit\" value=\"Create Employee/Admin\" class=\"btn notika-btn-blue\" name=\"create\">
                             </button>
                         </div>
                         </div>

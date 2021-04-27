@@ -1,5 +1,6 @@
 <?php
-if ( ! empty( $_POST ) ) {
+if (!empty($_POST)) {
+    print_r($_POST);
     require_once("db.php");
     // Getting submitted user data from database
     $vin = $_POST['vin'];
@@ -18,15 +19,29 @@ if ( ! empty( $_POST ) ) {
     $seats_num = $_POST['seats_num'];
     $p_id = $_POST['P_id'];
     $now = date("Y-m-d H:i:s");
+
     $query = "INSERT INTO `car`(`vin`, `brand`, `color`, `year`, `style`, `model`, `gear`, `gear_type`, `cylinder`, `cost`, `price`, `drive_type`, `fuel_type`, `seats_num`, `p_id`, `date`) 
         VALUES ($vin,$brand,$color,$year,$style,$model,$gear,$gear_type,$cylinder,$cost,$price,$drive_type,$fuel_type,$seats_num,$p_id,$now)";
-    if ($conn->query($query) === TRUE){
-        header("location: ../index.php");
+    if ($conn->query($query) === TRUE) {
+        print_r($_FILES);
+        $total = count($_FILES['car_photos']['name']);
+        for ($i = 0; $i < $total; $i++) {
+            $newfilename = microtime(true) . '.' . $_FILES["car_photos"]["name"][$i];
+            $fileToMove = $_FILES['photo']['tmp_name'][$i];
+            if ($fileToMove != "") {
+                $newFilePath = "../carImages/" . $newfilename . $_FILES['car_photos']['name'][$i];
+                if (move_uploaded_file($fileToMove, $newFilePath)) {
+                    $image = "./carImages/" . $newfilename . $_FILES['car_photos']['name'][$i];
+                    $query = "INSERT INTO `car_photos`(`vin`, `photo`) VALUES ('$vin','$image')";
+                }
+            }
+        }
+        //header("location: ../index.php");
     }
-    $conn->close();  
+
+
+    $conn->close();
 } else {
     echo "POST is empty!";
     echo " failed!";
 }
-
-?>
