@@ -1,10 +1,11 @@
 <?php
-    function get_contacts() {
-        print "<!-- Contact area Start-->
+function get_contacts()
+{
+    print "<!-- Contact area Start-->
         <div class=\"contact-area\">
                 <div class=\"container\">
                     <div class=\"row\">";
-        print "<a href=\"add_person.php\"><div class=\"col-lg-3 col-md-6 col-sm-6 col-xs-12\">
+    print "<a href=\"add_person.php\"><div class=\"col-lg-3 col-md-6 col-sm-6 col-xs-12\">
         <div class=\"contact-list\"><br/><br/><br/><br/><br/><br/><br/> 
             <div class=\"contact-win\">
                 <div class=\"contact-img\">
@@ -20,32 +21,36 @@
                 </div>
             </div>
         </div>
-    </div></a>";         
-        require("./widgets/db.php");
-        $query = "SELECT X.`ID`, X.`fullname`, X.`photo`, X.`city`, X.`type`, X.`qualification`, W.`username`, Y.`email`, Z.`phone` 
+    </div></a><div class=\"row\">";
+    require("./widgets/db.php");
+    $query = "SELECT X.`fullname`, X.`photo`, X.`city`, X.`country`, X.`type`, X.`qualification`, W.`username`, Y.`email`, Z.`phone` 
         FROM `emp_info` W,`emp` X, `emp_email` Y, `emp_phone` Z 
         WHERE W.`ID`=X.`ID`=Y.`ID`=Z.`ID`
-        ORDER BY X.`type`";
-        $employee = mysqli_query($conn, $query);
-        while($row = mysqli_fetch_assoc($employee))
-        {
-            $id = $row['ID'];
-            $name = $row['fullname'];
-            $photo = $row['photo'];
-            $city = $row['city'];
-            $type = $row['type'];
-            $email = $row['email'];
-            $phone = $row['phone'];
-            $qualification = $row['qualification'];
-            $username = $row['username'];
-            
-            print "<div class=\"col-lg-3 col-md-6 col-sm-6 col-xs-12\">
+        ORDER BY X.`type`, X.`fullname`";
+    $employee = mysqli_query($conn, $query);
+    //$i = 1;
+    while ($row = mysqli_fetch_assoc($employee)) {
+        //$i++;
+        $name = $row['fullname'];
+        $photo = $row['photo'];
+        $city = $row['city'];
+        $country = $row['country'];
+        $type = $row['type'];
+        $email = $row['email'];
+        $phone = $row['phone'];
+        $qualification = $row['qualification'];
+        $username = $row['username'];
+
+        print "<div class=\"col-lg-3 col-md-6 col-sm-12 col-xs-12\">
             <div class=\"contact-list\">
                 <div class=\"contact-win\">
                     <div class=\"contact-img\">";
-                        if ($photo != NULL ) { print "<img src=\"$photo\" alt=\"\" />"; }
-                        else {print "<img src=\"img/post/1.jpg\" alt=\"\" />"; }
-                    print " </div>
+        if ($photo != NULL) {
+            print "<img src=\"widgets/$photo\" alt=\"\" />";
+        } else {
+            print "<img src=\"img/post/1.jpg\" alt=\"\" />";
+        }
+        print " </div>
                     <!--<div class=\"conct-sc-ic\">
                         <a class=\"btn\" href=\"#\"><i class=\"notika-icon notika-facebook\"></i></a>
                         <a class=\"btn\" href=\"#\"><i class=\"notika-icon notika-twitter\"></i></a>
@@ -58,25 +63,29 @@
                         <p class=\"ctn-ads\">@$username</p>
                     </div>
                     <p>$qualification</p>
+                    <p>$city, <b>$country</b></p>
                     <div class=\"social-sn\">
                         <h2>Type:</h2>
                         <p>$type</p>
                     </div><br/>
                     <div class=\"social-sn\">
-                        <a href='mailto:" . $email ."'><h2>Email:</h2>
+                        <a href='mailto:" . $email . "'><h2>Email:</h2>
                         <p>$email</p>
                     </div><br/>
                     <div class=\"social-sn\">
-                        <a href='tel:" . $phone ."'><h2>Phone:</h2>
+                        <a href='tel:" . $phone . "'><h2>Phone:</h2>
                         <p>$phone</p></a>
                     </div><br/>
                 </div>
             </div>
         </div> ";
-        }
-        print "</div>
+        //if ($i == 3) {
+        //    $i = 0;
+        //    print "</div><div class=\"row\">";
+        //}
+    }
+    print "</div></div>
             </div>
         </div>";
-        $conn->close();
-    }
-?>
+    $conn->close();
+}

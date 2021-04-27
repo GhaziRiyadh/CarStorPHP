@@ -11,60 +11,98 @@ if (!empty($_POST)) {
     $pass2 = $_POST['pass2'];
     $gender = $_POST['gender'];
     $country = $_POST['country'];
-    $city = $_POST['city'];
+    $city = strtoupper($_POST['city']);
     $phone = $_POST['phone'];
     $email = $_POST['email'];
     $type = $_POST['type'];
-    $photo = $_POST['photo'];
-    $ssn_photo = $_POST['ssn_photo'];
     //check password and apply hashing
     echo "password check..\n";
     if ($pass1 == $pass2) {
         $pass = password_hash($pass2, PASSWORD_ARGON2I);
         echo "password match!\n";
     }
+    echo "file check...\nFile ";
+    print_r($_FILES);
     //uploading files
-    if (!empty($_POST['photo'])) {
-        echo "got user photo!\n";
+    if (!is_null($_FILES["photo"]["name"])) {
+        echo "got user photo: " . $_FILES["photo"]["name"] . "\n";
+        $newfilename = microtime(true) . '.' . $_FILES["photo"]["name"];
         $fileToMove = $_FILES['photo']['tmp_name'];
-        $destinatiom = "./ephoto/";
-        $photo = $destinatiom;
-        $temp = explode(".", $_FILES["file"]["name"]);
-        $newfilename = round(microtime(true)) . '.' . end($temp);
-        move_uploaded_file($_FILES["file"]["tmp_name"], $destinatiom . $newfilename);
+        $destination = "./images/ephoto/" . $newfilename;
+        if (move_uploaded_file($fileToMove, $destination)) {
+            $photo = $destination;
+            echo "moved the user photo: $photo\n";
+        } else {
+            echo "error moving user photo\n";
+        }
     } else {
+        $photo = null;
         echo "no user photo\n";
     }
-    if (!empty($_POST['ssn_photo'])) {
-        echo "got ssn photo!\n";
+    if (!is_null($_FILES["ssn_photo"]["name"])) {
+        echo "got ssn photo: " . $_FILES["ssn_photo"]["name"] . "\n";
+        $newfilename = microtime(true) . '.' . $_FILES["ssn_photo"]["name"];
         $fileToMove = $_FILES['ssn_photo']['tmp_name'];
-        $destinatiom = "./essn/";
-        $ssn_photo = $destinatiom;
-        $temp = explode(".", $_FILES["file"]["name"]);
-        $newfilename = round(microtime(true)) . '.' . end($temp);
-        move_uploaded_file($_FILES["file"]["tmp_name"], $destinatiom . $newfilename);
+        $destination = "./images/essn/" . $newfilename;
+        if (move_uploaded_file($fileToMove, $destination)) {
+            $ssn_photo = $destination;
+            echo "moved the ssn photo: $ssn_photo\n";
+        } else {
+            echo "error moving ssn photo\n";
+        }
     } else {
-        echo "no ssn photo!\n";
+        $photo = null;
+        echo "no user photo\n";
     }
+    $query = "SELECT `id` FROM `emp` ORDER BY ID DESC limit 1";
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_assoc($result);
+    $id = $row['id'] + 1;
     //commit
     echo "submitting..\n";
-    $query = "BEGIN;
-            INSERT INTO `emp`(`ssn`, `fullname`, `gender`, `city`, `country`, `photo`, `type`, `qualification`,`ssn_scan`) 
-                VALUES ($SSN,$name,$gender,$city,$country,$photo,$type,$qualification,$ssn_photo);
-            INSERT INTO `emp_email`(`ID`, `email`) 
-                VALUES (LAST_INSERTED_ID(),$email);
-            INSERT INTO `emp_info`(`ID`, `username`, `password`, `email`) 
-                VALUES (LAST_INSERTED_ID(),$username,$pass,$email);
-            INSERT INTO `emp_phone`(`ID`, `phone`) 
-                VALUES (LAST_INSERTED_ID(),$phone);
-            COMMIT;";
+    if (is_null($photo) == true && is_null($ssn_photo) == false) {
+        $query = "INSERT INTO `emp`(`id`, `ssn`, `fullname`, `gender`, `city`, `country`, `photo`, `type`, `qualification`, `ssn_scan`) 
+                VALUES ($id, $SSN,\"$name\",\"$gender\",\"$city\",\"$country\",$photo,\"$type\",\"$qualification\",\"$ssn_photo)\"";
+    } else if (is_null($photo) == false && is_null($ssn_photo) == true) {
+        $query = "INSERT INTO `emp`(`id`, `ssn`, `fullname`, `gender`, `city`, `country`, `photo`, `type`, `qualification`, `ssn_scan`) 
+                VALUES ($id, $SSN,\"$name\",\"$gender\",\"$city\",\"$country\",\"$photo\",\"$type\",\"$qualification\",$ssn_photo)";
+    } else {
+        $query = "INSERT INTO `emp`(`id`, `ssn`, `fullname`, `gender`, `city`, `country`, `photo`, `type`, `qualification`, `ssn_scan`) 
+                VALUES ($id, $SSN,\"$name\",\"$gender\",\"$city\",\"$country\",\"$photo\",\"$type\",\"$qualification\",\"$ssn_photo\")";
+    }
     if ($conn->query($query) === TRUE) {
-        $conn->close();
-        echo "success!";
-        header("location: ../index.php");
+        echo "success! on emp table";
+        //header("location: ../index.php");
     } else {
         echo $conn->error;
-        echo "failed!";
+        echo "\nfailed! on emp table";
+    }
+    $query = "INSERT INTO emp_email(ID, email) 
+                VALUES ($id, '$email')";
+    if ($conn->query($query) === TRUE) {
+        echo "success! on emp table";
+        //header("location: ../index.php");
+    } else {
+        echo $conn->error;
+        echo "\nfailed! on emp table";
+    }
+    $query = "INSERT INTO emp_info(ID, username, password, email) 
+                VALUES ($id, '$username','$pass','$email')";
+    if ($conn->query($query) === TRUE) {
+        echo "success! on emp table";
+        //header("location: ../index.php");
+    } else {
+        echo $conn->error;
+        echo "\nfailed! on emp table";
+    }
+    $query = "INSERT INTO emp_phone(ID, phone) 
+                VALUES ($id, '$phone')";
+    if ($conn->query($query) === TRUE) {
+        echo "success! on emp table";
+        //header("location: ../index.php");
+    } else {
+        echo $conn->error;
+        echo "\nfailed! on emp table";
     }
     $conn->close();
 }

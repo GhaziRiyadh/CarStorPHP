@@ -1,6 +1,7 @@
 <?php
-    function add_car_item() {
-        print "
+function add_car_item()
+{
+    print "
         <!-- Breadcomb area Start-->
 <div class=\"breadcomb-area\">
     <div class=\"container\">
@@ -11,7 +12,8 @@
                         <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-12\">
                             <div class=\"breadcomb-wp\">
                                 <div class=\"breadcomb-icon\">
-                                    <i class=\"notika-icon notika-promos\"></i>
+                                    <i class=\"notika-icon notika-promos\">
+</i>
                                 </div>
                                 <div class=\"breadcomb-ctn\">
                                     <h2>إضافة سيارة</h2>
@@ -29,7 +31,7 @@
 <!-- Compose email area Start-->
 <div class=\"inbox-area\">
     <div class=\"container\">
-    <form action=\"./widgets/processlogin.php\" method=\"post\">
+    <form action=\"./widgets/processlogin.php\" method=\"post\" enctype=\"multipart/form-data\">
         <div class=\"row\">
             <div class=\"col-lg-12 col-md-12 col-sm-12 col-xs-12\">
                 <div class=\"view-mail-list sm-res-mg-t-30\">
@@ -44,7 +46,9 @@
                             </div>
                             <div class=\"col-lg-1 col-md-2 col-sm-2 col-xs-12\">
                                 <div class=\"cmp-int-lb cmp-int-lb1 text-right\">
-                                    <span><b> :رقم القعادة</b></span>
+                                    <span>
+<b> :رقم القعادة</b>
+</span>
                                 </div>
                             </div>
                         </div>
@@ -170,7 +174,8 @@
                                 </div>
                             </div>
                         </div>
-                        <br/><div class=\"row\">
+                        <br/>
+<div class=\"row\">
                             <div class=\"col-lg-3 col-md-3 col-sm-3 col-xs-12\">
                                 <div class=\"nk-int-mk sl-dp-mn sm-res-mg-t-10\">
                                     <h2> :السليندر</h2>
@@ -270,7 +275,8 @@
                                 </div>
                             </div>
                         </div>
-                        <br/><div class=\"row\">
+                        <br/>
+<div class=\"row\">
                             <div class=\"col-lg-3 col-md-3 col-sm-3 col-xs-12\">
                                 <div class=\"nk-int-mk sl-dp-mn sm-res-mg-t-10\">
                                     <h2> :الوقود</h2>
@@ -340,7 +346,7 @@
                             </div>
                             <div class=\"form-group float-lb floating-lb\">
                                 <div class=\"nk-int-st input-lm\">
-                                    <input name=\"cost\" type=\"text\" class=\"form-control\">
+                                    <input name=\"cost\" type=\"number\" class=\"form-control\">
                                 </div>
                             </div>
                         </div>
@@ -350,43 +356,54 @@
                             </div>
                             <div class=\"form-group float-lb floating-lb\">
                                 <div class=\"nk-int-st input-lm\">
-                                    <input name=\"price\" type=\"text\" class=\"form-control\">
+                                    <input name=\"price\" type=\"number\" class=\"form-control\">
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class=\"cmp-int-box mg-t-20\">
-                        <div class=\"html-editor-cm\">
-                        </div>
-                    </div>
-                    <!--<div class=\"multiupload-sys\">
-                        <div id=\"dropzone\" class=\"dropmail\">
-                            <form action=\"/upload\" class=\"dropzone dropzone-custom needsclick\" id=\"demo-upload\">
-                                <div class=\"dz-message needsclick download-custom\">
-                                    <i class=\"notika-icon notika-cloud\" aria-hidden=\"true\"></i>
-                                    <h2>ارمي الصور هنا او انقر لرفع الصور</h2>
-                                    <p><span class=\"note needsclick\">الملفات المدخلة هنا <strong>لن</strong> يتم رفعها في الوقت الحالي</span>
-                                    </p>
+                    <div class=\"row\">
+                            <div class=\"col-lg-12 col-md-12 col-sm-12 col-xs-12\">
+                                <div class=\"floating-numner\">
+                                    <p><h4>مواصفات أخرى</h4></p>
                                 </div>
-                            </form>
+                            </div>
                         </div>
-                    </div>-->
+                        <div class=\"row\">
+                            <div class=\"col-lg-12 col-md-12 col-sm-12 col-xs-12\">
+                                <div class=\"form-group\">
+                                    <div class=\"nk-int-st\">
+                                        <textarea name=\"dtl\" class=\"form-control auto-size\" rows=\"10\"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <div class=\"col-lg-6 col-md-6 col-sm-12 col-xs-12\">
+                                <div class=\"nk-int-mk sl-dp-mn sm-res-mg-t-10\">
+                                    <h2> :صور السيارة</h2>
+                                </div>
+                                <p>قم بإختيار جميع الصور التي تحتاجها</p>
+                        <input type=\"file\" name=\"car_photos[]\" multiple=\"multiple\" accept=\".jpg, .jpeg, .jpe .jif, .jfif, .jfi, .png, .webp, .tiff, .tif\"/>
+                    </div>
+                    </div>
+                    
                     <div class=\"vw-ml-action-ls text-right mg-t-20\">
                         <div class=\"btn-group ib-btn-gp active-hook nk-email-inbox\">
                         <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-3\">
                         <div class=\"breadcomb-report\">
-                            <a class=\"btn btn-lg waves-effect\"><i class=\"notika-icon notika-checked\"> حفظ </i></a>
+                            <!-- a id=\"submit\" href=\"javascript:{}\" onClick=\"vs();\" class=\"btn btn-lg waves-effect\">
+<i class=\"notika-icon notika-checked\"> حفظ </i>
+</a -->
+                            <button class=\"btn notika-btn-blue\">
+                            <input type=\"submit\" value=\"إضافة سيارة\" class=\"btn notika-btn-blue\" name=\"create\">
+                            </button>
+                        </div>
+                        </div>
                         </div>
                     </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </form>
     </div>
 </div>
 <!-- Compose email area End-->
         ";
-    }
-?>
+}

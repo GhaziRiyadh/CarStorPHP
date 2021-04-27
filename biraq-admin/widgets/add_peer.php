@@ -1,6 +1,7 @@
 <?php
-    function add_car_item() {
-        print "
+function add_car_item()
+{
+    print "
         <!-- Breadcomb area Start-->
 <div class=\"breadcomb-area\">
     <div class=\"container\">
@@ -25,11 +26,12 @@
         </div>
     </div>
 </div>
+
 <!-- Breadcomb area End-->
 <!-- Compose email area Start-->
 <div class=\"inbox-area\">
     <div class=\"container\">
-    <form action=\"./widgets/processemployee.php\" id=\"addp\" method=\"post\">
+    <form action=\"./widgets/processemployee.php\" id=\"addp\" method=\"post\" enctype=\"multipart/form-data\">
         <div class=\"row\">
             <div class=\"col-lg-12 col-md-12 col-sm-12 col-xs-12\">
                 <div class=\"view-mail-list sm-res-mg-t-30\">
@@ -104,8 +106,8 @@
                                 <div class=\"bootstrap-select fm-cmp-mg\">
                                     <select name=\"gender\" class=\"selectpicker\" data-live-search=\"true\">
                                         <option disabled selected hidden>اختر</option>
-                                        <option value=\"MALE\">ذكر</option>
-                                        <option value=\"FEMALE\">أنثى</option>
+                                        <option value=\"M\">ذكر</option>
+                                        <option value=\"F\">أنثى</option>
                                     </select>
                                 </div>
                             </div>
@@ -179,29 +181,29 @@
                                     <h2> :صورة الهوية</h2>
                                 </div>
                                 <p>قم بإختيار صورة واحدة فقط</p>
-                        <input type=\"file\" name=\"ssn_photo\"/>
+                        <input type=\"file\" name=\"ssn_photo\" multiple=\"false\" accept=\".jpg, .jpeg, .jpe .jif, .jfif, .jfi, .png, .webp, .tiff, .tif\"/>
                     </div>
                     <div class=\"col-lg-3 col-md-3 col-sm-6 col-xs-12\">
                                 <div class=\"nk-int-mk sl-dp-mn sm-res-mg-t-10\">
                                     <h2> :صورة المستخدم</h2>
                                 </div>
                                 <p>قم بإختيار صورة واحدة فقط</p>
-                        <input type=\"file\" name=\"photo\" />
+                        <input type=\"file\" name=\"photo\"  multiple=\"false\" accept=\".jpg, .jpeg, .jpe .jif, .jfif, .jfi, .png, .webp, .tiff, .tif\"/>
                     </div>
                     </div>
-                    </form>
+                    
                     <div class=\"vw-ml-action-ls text-right mg-t-20\">
                         <div class=\"btn-group ib-btn-gp active-hook nk-email-inbox\">
                         <div class=\"col-lg-6 col-md-6 col-sm-6 col-xs-3\">
                         <div class=\"breadcomb-report\">
                             <!-- a id=\"submit\" href=\"javascript:{}\" onClick=\"vs();\" class=\"btn btn-lg waves-effect\"><i class=\"notika-icon notika-checked\"> حفظ </i></a -->
                             <button class=\"btn notika-btn-blue\">
-                            <input type=\"submit\" value=\"Login\" class=\"btn notika-btn-blue\" name=\"login\">
+                            <input type=\"submit\" value=\"Create Employee/Admin\" class=\"btn notika-btn-blue\" name=\"create\">
                             </button>
-                            </div>
-                    </div>
                         </div>
-                    </div>
+                        </div>
+                        </div>
+                    </div></form>
                 </div>
             </div>
         </div>
@@ -209,7 +211,7 @@
 </div>
 <!-- Compose email area End-->
         ";
-        print "
+    print "
         <script>
         function vs() {
             if (document.getElementsByName('fullname').value == \"\") {
@@ -268,4 +270,4 @@
         }
         </script>
         ";
-    }
+}

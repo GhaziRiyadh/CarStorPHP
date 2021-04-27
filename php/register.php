@@ -2,6 +2,9 @@
 // Include config file
 require_once 'app.php';
 
+$datacontrol = new mysqli_connection;
+$datacontrol = $datacontrol->connect();
+
 // Define variables and initialize with empty values
 $Email = $profile = $fullName  = $phoneNumber_logup = $password = $confirm_password = "";
 $Email_err = $password_err = $confirm_password_err = "";
@@ -14,18 +17,18 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $Email_err = "من فضلك ادخل البريد الالكتروني.";
     } else {
         // Prepare a select statement
-        $sql = "SELECT id FROM users WHERE Email = :Email";
+        $sql = "SELECT id FROM users WHERE Email = ?";
 
-        if ($stmt = $pdo->prepare($sql)) {
+        if ($stmt = $datacontrol->prepare($sql)) {
             // Set parameters
             $param_Email = trim($_GET["Email"]);
 
             // Bind variables to the prepared statement as parameters
-            $stmt->bindParam(":Email", $param_Email, PDO::PARAM_STR);
+            $stmt->bind_param("s", $param_Email);
 
             // Attempt to execute the prepared statement
             if ($stmt->execute()) {
-                if ($stmt->rowCount() == 1) {
+                if ($stmt->num_rows() == 1) {
                     $Email_err = "تم تسخيل الدخول بهذا الحساب من قبل.";
                 } else {
                     $Email = trim($_GET["Email"]);
@@ -55,6 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $confirm_password = trim($_GET["confirm_password"]);
         if (empty($password_err) && ($password != $confirm_password)) {
             $confirm_password_err = "كلمة المرور ليست متطابقة.";
+            header("location: " . $_POST['path_page']);
         }
     }
 
@@ -62,17 +66,15 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     if (empty($Email_err) && empty($password_err) && empty($confirm_password_err)) {
 
         // Prepare an insert statement
-        $sql = "INSERT INTO clint( name ,profile) VALUES (:fullName ,:profile)";
-        $sql_phonnumber = "INSERT INTO phonenumber(phoneNumber) VALUES (:phoneNumber)";
-        $sql_Email_pass = "INSERT INTO Email( Email ,password) VALUES (:Email ,:password)";
+        $sql = "INSERT INTO clint( name ,profile) VALUES (? ,?)";
+        $sql_phonnumber = "INSERT INTO phonenumber(phoneNumber) VALUES (?)";
+        $sql_Email_pass = "INSERT INTO Email( Email ,password) VALUES (? ,?)";
 
-        if ($stmt = $pdo->prepare($sql) and $Email_insert = $pdo->prepare($sql_Email_pass) and $phoneNumber_insert = $pdo->prepare($sql_phonnumber)) {
+        if ($stmt = $datacontrol->prepare($sql) and $Email_insert = $datacontrol->prepare($sql_Email_pass) and $phoneNumber_insert = $datacontrol->prepare($sql_phonnumber)) {
             // Bind variables to the prepared statement as parameters
-            $stmt->bindParam(":profile", $_GET['profile'], PDO::PARAM_STR);
-            $stmt->bindParam(":fullName", $_GET['fullName'], PDO::PARAM_STR);
-            $Email_insert->bindParam(":Email", $param_Email, PDO::PARAM_STR);
-            $Email_insert->bindParam(":password", $param_password, PDO::PARAM_STR);
-            $phoneNumber_insert->bindParam(":phoneNumber", $_GET['phoneNumber_logup'], PDO::PARAM_STR);
+            $stmt->bind_param("ss", $_GET['profile'], $_GET['fullName']);
+            $Email_insert->bind_param("ss", $param_Email, $param_password);
+            $phoneNumber_insert->bind_param("s", $_GET['phoneNumber_logup']);
 
 
             // Set parameters
