@@ -26,7 +26,6 @@ if (!empty($_POST)) {
     //uploading files
     if (!is_null($_FILES["photo"]["name"])) {
         echo "got user photo: " . $_FILES["photo"]["name"] . "\n";
-        $temp = explode(".", $_FILES["photo"]["name"]);
         $newfilename = microtime(true) . '.' . $_FILES["photo"]["name"];
         $fileToMove = $_FILES['photo']['tmp_name'];
         $destination = "./images/ephoto/" . $newfilename;
@@ -42,7 +41,6 @@ if (!empty($_POST)) {
     }
     if (!is_null($_FILES["ssn_photo"]["name"])) {
         echo "got ssn photo: " . $_FILES["ssn_photo"]["name"] . "\n";
-        $temp = explode(".", $_FILES["ssn_photo"]["name"]);
         $newfilename = microtime(true) . '.' . $_FILES["ssn_photo"]["name"];
         $fileToMove = $_FILES['ssn_photo']['tmp_name'];
         $destination = "./images/essn/" . $newfilename;
